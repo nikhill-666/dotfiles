@@ -73,20 +73,36 @@ log "Installing packages from lists..."
 
 # Pacman packages
 if [ -f "$REPO_DIR/packages/pacman.txt" ]; then
-    log "Installing $(wc -l < "$REPO_DIR/packages/pacman.txt") pacman packages..."
+    TOTAL=$(wc -l < "$REPO_DIR/packages/pacman.txt")
+    log "Installing $TOTAL pacman packages (skipping already installed)..."
+    COUNT=0
+    SKIP=0
     while IFS= read -r pkg; do
         [ -z "$pkg" ] && continue
-        sudo pacman -S --noconfirm "$pkg" 2>/dev/null || warn "Failed: $pkg"
+        if pacman -Qq "$pkg" &>/dev/null; then
+            ((SKIP++))
+            continue
+        fi
+        sudo pacman -S --noconfirm "$pkg" 2>/dev/null && ((COUNT++)) || warn "Failed: $pkg"
     done < "$REPO_DIR/packages/pacman.txt"
+    log "Installed $COUNT new packages, skipped $SKIP already installed"
 fi
 
 # AUR packages
 if [ -f "$REPO_DIR/packages/aur.txt" ]; then
-    log "Installing $(wc -l < "$REPO_DIR/packages/aur.txt") AUR packages..."
+    TOTAL=$(wc -l < "$REPO_DIR/packages/aur.txt")
+    log "Installing $TOTAL AUR packages (skipping already installed)..."
+    COUNT=0
+    SKIP=0
     while IFS= read -r pkg; do
         [ -z "$pkg" ] && continue
-        yay -S --noconfirm "$pkg" 2>/dev/null || warn "Failed: $pkg"
+        if yay -Qq "$pkg" &>/dev/null; then
+            ((SKIP++))
+            continue
+        fi
+        yay -S --noconfirm "$pkg" 2>/dev/null && ((COUNT++)) || warn "Failed: $pkg"
     done < "$REPO_DIR/packages/aur.txt"
+    log "Installed $COUNT new AUR packages, skipped $SKIP already installed"
 fi
 
 # =============================================================================
