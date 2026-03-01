@@ -167,7 +167,7 @@ info "  REPO_DIR: $REPO_DIR"
 info "  Contents: $(ls $REPO_DIR/config/)"
 
 CONFIGS=(
-    "hyprland:$REPO_DIR/config/hyprland"
+    "hypr:$REPO_DIR/config/hyprland"
     "waybar:$REPO_DIR/config/waybar"
     "wofi:$REPO_DIR/config/wofi"
 )
