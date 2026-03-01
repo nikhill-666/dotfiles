@@ -130,18 +130,25 @@ done
 # =============================================================================
 log "Linking configs..."
 
+# Ensure .config exists
+mkdir -p "$HOME/.config"
+
+# Link main configs
 CONFIGS=(
-    ".config/hyprland:$REPO_DIR/config/hyprland"
-    ".config/waybar:$REPO_DIR/config/waybar"
-    ".config/wofi:$REPO_DIR/config/wofi"
+    "hyprland:$REPO_DIR/config/hyprland"
+    "waybar:$REPO_DIR/config/waybar"
+    "wofi:$REPO_DIR/config/wofi"
 )
 
 for item in "${CONFIGS[@]}"; do
-    IFS=':' read -r src dest <<< "$item"
-    if [ -d "$REPO_DIR/config/$src" ] || [ -f "$REPO_DIR/config/$src" ]; then
-        rm -rf "$HOME/$src"
-        ln -sf "$REPO_DIR/config/$src" "$HOME/$src"
-        log "Linked $src"
+    IFS=':' read -r name dest <<< "$item"
+    SRC_DIR="$HOME/.config/$name"
+    if [ -d "$dest" ]; then
+        rm -rf "$SRC_DIR"
+        ln -sf "$dest" "$SRC_DIR"
+        log "Linked ~/.config/$name"
+    else
+        warn "Source $dest not found"
     fi
 done
 
@@ -151,7 +158,39 @@ done
 log "Additional setup..."
 
 # Create useful dirs
-mkdir -p ~/.local/share/icons
+mkdir -p ~/.local/share/icons ~/.local/share/applications
+
+# Copy desktop entry for package-search
+if [ -f "$HOME/.local/share/applications/package-search.desktop" ]; then
+    log "Desktop entry already exists"
+else
+    mkdir -p ~/.local/share/applications
+    cat > ~/.local/share/applications/package-search.desktop << 'EOF'
+[Desktop Entry]
+Name=Package Search
+Comment=Search and install packages via Pacman/AUR
+Exec=/home/nik/.config/waybar/scripts/package-search.sh
+Icon=arch-linux
+Type=Application
+Categories=System;Utility;
+Keywords=pacman;aur;package;install;yay;
+EOF
+    # Fix path for new machine
+    sed -i "s|/home/nik/|$HOME/|g" ~/.local/share/applications/package-search.desktop
+    log "Created desktop entry"
+fi
+
+# Copy icons
+if [ -f "$REPO_DIR/config/waybar/dumbbell.png" ]; then
+    cp "$REPO_DIR/config/waybar/dumbbell.png" ~/.local/share/icons/ 2>/dev/null
+    cp "$REPO_DIR/config/waybar/gym.png" ~/.local/share/icons/ 2>/dev/null
+fi
+
+# Fix absolute paths in configs (replace /home/nik with $HOME)
+log "Fixing absolute paths in configs..."
+find "$HOME/.config" -type f \( -name "*.sh" -o -name "*.conf" -o -name "*.jsonc" \) -exec sed -i "s|/home/nik/|$HOME/|g" {} \; 2>/dev/null
+
+log "Config setup complete!"
 
 # Set permissions
 chmod +x "$REPO_DIR"/scripts/*.sh 2>/dev/null || true
