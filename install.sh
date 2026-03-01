@@ -140,6 +140,18 @@ fi
 # =============================================================================
 log "=== STEP 5: Clone Personal Repos ==="
 
+# Check for SSH keys
+info "Checking SSH keys..."
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+    warn "No SSH key found at ~/.ssh/id_ed25519"
+    info "Repos will need manual cloning or SSH key setup"
+else
+    info "SSH key found - adding to agent..."
+    eval "$(ssh-agent -s)" 2>/dev/null
+    ssh-add "$HOME/.ssh/id_ed25519" 2>/dev/null || warn "Failed to add SSH key"
+    info "SSH key ready"
+fi
+
 REPOS=(
     "git@github.com:nikhill-666/obsidian.git:Documents/obsidian"
 )
