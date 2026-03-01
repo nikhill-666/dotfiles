@@ -1,0 +1,13 @@
+# Logs
+*.log
+
+# Temp
+*.tmp
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config overrides (if any)
+*.local

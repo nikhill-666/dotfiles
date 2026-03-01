@@ -1,0 +1,176 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+
+    "margin-top": 5,
+    "margin-left": 5,
+    "margin-right": 5,
+    "margin-bottom": 0,
+
+    "reload_style_on_change": true,
+    "modules-left": ["custom/fail2ban", "hyprland/workspaces", "custom/disk", "custom/hypridle", "custom/gym", "group/homelab"],
+    "modules-center": ["custom/vpn"],
+    "modules-right": ["custom/bluetooth", "network", "custom/pia-vpn", "custom/weather", "custom/rain", "battery", "clock"],
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
+    "clock": {
+        "format": "{:%H.%M}",
+        "format-alt": "{:%a.%m.%d}",
+        "tooltip-format": "{:%A, %B %d, %Y}",
+        "tooltip": true,
+        "on-click": "toggle-format"
+    },
+    "network": {
+        "format-wifi": "󰤨",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid}",
+        "interval": 5,
+        "on-click": "wofi-wifi"
+    },
+    "battery": {
+        "format": "{capacity}%",
+        "format-charging": "{capacity}%",
+        "format-plugged": "{capacity}%",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "interval": 5
+    },
+    "custom/weather": {
+        "exec": "~/.config/waybar/scripts/weather/weatherv2.sh",
+        "return-type": "json",
+        "interval": 600,
+        "format": "{}",
+        "format-alt": "{alt}",
+        "tooltip": true,
+        "on-click": "toggle-format"
+    },
+    "custom/rain": {
+        "exec": "~/.config/waybar/scripts/weather/rain-check.sh",
+        "return-type": "json",
+        "interval": 600,
+        "format": "{}",
+        "tooltip": true
+    },
+    "custom/bluetooth": {
+        "exec": "~/.config/waybar/scripts/bluetooth.sh",
+        "interval": 5,
+        "format": "{}",
+        "on-click": "ghostty -e bluetui",
+        "tooltip": true,
+        "return-type": "json"
+    },
+    "custom/disk": {
+        "exec": "~/.config/waybar/scripts/disk",
+        "interval": 300,
+        "format": "{}",
+        "tooltip": true,
+        "return-type": "json"
+    },
+    "custom/hypridle": {
+        "exec": "~/.config/waybar/scripts/hypridle-toggle.sh status",
+        "interval": 1,
+        "format": "{}",
+        "on-click": "~/.config/waybar/scripts/hypridle-toggle.sh toggle",
+        "tooltip": true,
+        "return-type": "json",
+        "exec-if": "which pgrep"
+    },
+    "custom/vpn": {
+        "exec": "~/.config/waybar/scripts/vpn-status.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/fail2ban": {
+        "exec": "~/.config/waybar/scripts/waybar-fail2ban.sh",
+        "return-type": "json",
+        "interval": 30,
+        "format": "{}",
+        "tooltip": true
+    },
+    "custom/gym": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "$HOME/.config/waybar/scripts/gym/waybar_gym.fish",
+        "on-click": "ghostty -e fish -c '$HOME/arch/scripts/gym/gym_log.fish'",
+        "interval": 600
+    },
+    "group/homelab": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "homelab-server",
+            "transition-left-to-right": true
+        },
+        "modules": [
+            "custom/servers-overview",
+            "custom/server-solaris",
+            "custom/server-media", 
+            "custom/server-arrstack",
+            "custom/server-artemis",
+            "custom/server-luna"
+        ]
+    },
+    "custom/servers-overview": {
+        "format": "☢",
+        "tooltip": false
+    },
+    "custom/server-solaris": {
+        "exec": "~/.config/waybar/scripts/server-solaris.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/server-media": {
+        "exec": "~/.config/waybar/scripts/server-media.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/server-arrstack": {
+        "exec": "~/.config/waybar/scripts/server-arrstack.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/server-artemis": {
+        "exec": "~/.config/waybar/scripts/server-artemis.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/server-luna": {
+        "exec": "~/.config/waybar/scripts/server-luna.sh",
+        "interval": 3,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true
+    },
+    "custom/pia-vpn": {
+        "exec": "~/.config/waybar/scripts/pia-vpn-status.sh",
+        "interval": 5,
+        "format": "{}",
+        "return-type": "json",
+        "tooltip": true,
+        "on-click": "piactl disconnect",
+        "on-click-right": "~/.config/waybar/scripts/wofi-pia-regions"
+    }
+}

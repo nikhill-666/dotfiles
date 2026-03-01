@@ -1,0 +1,207 @@
+@import "../omarchy/current/theme/waybar.css";
+
+* {
+    background-color: @background;
+    color: @foreground;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: 'JetBrainsMono Nerd Font';
+    font-size: 12px;
+}
+
+.modules-left {
+    margin-left: 8px;
+}
+
+.modules-right {
+    margin-right: 8px;
+}
+
+#workspaces button {
+    all: initial;
+    padding: 0 6px;
+    margin: 0 1.5px;
+    min-width: 9px;
+}
+
+#workspaces button.empty {
+    opacity: 0.5;
+}
+
+#tray,
+#cpu,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update {
+    min-width: 12px;
+    margin: 0 7.5px;
+}
+
+#custom-expand-icon {
+    margin-right: 7px;
+}
+
+tooltip {
+    padding: 2px;
+}
+
+#custom-update {
+    font-size: 10px;
+}
+
+#clock {
+    margin-left: 8.75px;
+    color: #ff3333;
+    font-weight: bold;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+#custom-screenrecording-indicator {
+    min-width: 12px;
+    margin-left: 8.75px;
+    font-size: 10px;
+}
+
+#custom-screenrecording-indicator.active {
+    color: #a55555;
+}
+
+#custom-weather {
+    margin-left: 15px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+#custom-vpn.vpn-connected {
+    color: #00aaaa;
+    margin: 0 4px;
+}
+
+#custom-vpn.vpn-disconnected {
+    color: #ff5555;
+    margin: 0 4px;
+    animation: blink-disconnected 1s infinite alternate;
+}
+
+#custom-vpn.vpn-unknown {
+    color: #dbd83e;
+    margin: 0 4px;
+}
+
+#custom-lan-status {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#custom-lan-status2 {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#custom-lan-status3 {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#custom-lan-status4 {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#custom-lan-status5 {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#custom-lan-status.lan-available {
+    color: #17e9e6;
+}
+
+#custom-lan-status.lan-unavailable {
+    color: #ff5555;
+}
+
+#custom-lan-status2.lan-available {
+    color: #17e9df;
+}
+
+#custom-lan-status2.lan-unavailable {
+    color: #ff5555;
+}
+
+#custom-lan-status3.lan-available {
+    color: #17e9df;
+}
+#custom-lan-status3.lan-unavailable {
+    color: #ff5555;
+}
+
+#custom-lan-status4.lan-available {
+    color: #17e9df;
+}
+
+#custom-lan-status4.lan-unavailable {
+    color: #ff5555;
+}
+
+#custom-lan-status5.lan-available {
+    color: #17e9df;
+}
+
+#custom-lan-status5.lan-unavailable {
+    color: #ff5555;
+}
+
+#custom-server-icon.healthy {
+    color: #17e9df;
+}
+
+#custom-server-icon.critical {
+    color: #ff5555;
+    animation: blink-critical 1s infinite alternate;
+}
+
+@keyframes blink-critical {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* Styling for the WireGuard module */
+#custom-wireguard {
+    padding: 0 10px;
+    font-size: 14px; /* Adjust if needed */
+    color: #eceff4; /* Default text color (often Nord's foreground) */
+}
+
+/* Green color when CONNECTED */
+#custom-wireguard.Connected {
+    color: #a3be8c; /* A soft green (Nord's aurora green) */
+    font-weight: bold;
+}
+
+/* Red color when DISCONNECTED */
+#custom-wireguard.Disconnected {
+    color: #bf616a; /* A soft red (Nord's frost red) */
+}

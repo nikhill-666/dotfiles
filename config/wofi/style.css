@@ -1,0 +1,23 @@
+window {
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 12px;
+    font-family: "MoonGloss Display Thick";
+}
+
+input {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    font-family: "MoonGloss Display Thick";
+}
+
+#entry {
+    background-color: transparent;
+    color: white;
+    padding: 8px;
+    font-family: "MoonGloss Display Thick";
+}
+
+#entry:selected {
+    background-color: rgba(255, 255, 255, 0.25);
+}

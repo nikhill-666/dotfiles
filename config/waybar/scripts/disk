@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Disk space for home partition - percentage for display, full for tooltip
+
+USAGE=$(df -h "$HOME" | awk 'NR==2 {print $3}')
+TOTAL=$(df -h "$HOME" | awk 'NR==2 {print $2}')
+PERCENT=$(df -h "$HOME" | awk 'NR==2 {print $5}')
+
+echo "{\"text\": \"$PERCENT\", \"tooltip\": \"$USAGE used of $TOTAL\"}"

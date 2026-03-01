@@ -1,0 +1,87 @@
+@import "/home/nik/.config/aether/theme/waybar-theme.css";
+
+#waybar {
+    background: rgba(25, 22, 27, 0.8);
+    color: @foreground;
+    border: none;
+    border-radius: 10px;
+    margin: 8px 12px 0 12px;
+}
+
+* {
+    font-family: MoonGloss Display Thick;
+    font-size: 12px;
+}
+
+#clock {
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: @foreground;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-weather {
+    padding: 0 10px;
+    font-size: 12px;
+    color: @accent;
+}
+
+#network {
+    color: @foreground;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+#custom-bluetooth {
+    color: @foreground;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+#battery {
+    color: @accent;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: @foreground;
+    border: none;
+    padding: 0 5px;
+    font-size: 12;
+}
+
+#workspaces button.active {
+    color: #17e9df;
+    font-size: 14;
+}
+
+#custom-hypridle {
+    padding: 0 10px;
+    font-size: 16px;
+    color: @foreground;
+}
+
+#custom-hypridle.active {
+    color: @foreground;
+}
+
+#custom-hypridle.inactive {
+    color: #666666;
+}
+
+#custom-vpn {
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+#custom-vpn.vpn-up {
+    color: @foreground;
+}
+
+#custom-vpn.vpn-down {
+    color: #ef4444;
+}

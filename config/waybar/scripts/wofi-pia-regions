@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# PIA Region Selector for Wofi
+
+regions=$(piactl get regions)
+region_map=$(piactl get regions | sed 's/-/ /g' | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
+
+# Using wofi to show regions
+selected=$(echo "$regions" | wofi --show dmenu --prompt "Select VPN Region" --sort-order alphabetical)
+
+if [ -n "$selected" ]; then
+    piactl set region "$selected"
+    notify-send "VPN Region" "Changed to: $selected"
+fi

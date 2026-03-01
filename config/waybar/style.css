@@ -1,0 +1,213 @@
+@import "/home/nik/.config/aether/theme/waybar-theme.css";
+
+#waybar {
+    background: rgba(25, 22, 27, 0.5);
+    color: @foreground;
+    border: none;
+    border-radius: 10px;
+    margin: 8px 12px 0 12px;
+}
+
+* {
+    font-family: MoonGloss Display Thick;
+    font-size: 12px;
+}
+
+#clock {
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: @foreground;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-weather {
+    padding: 0 10px;
+    font-size: 12px;
+    color: @accent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#network {
+    padding: 0 10px;
+    color: @foreground;
+    padding: 0 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#custom-bluetooth {
+    color: @foreground;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+#battery {
+    color: @accent;
+    padding: 0 10px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#battery.charging {
+    color: #17e9df;
+    animation: pulse 2s infinite;
+}
+
+#battery.warning {
+    color: #f59e0b;
+}
+
+#battery.critical {
+    color: #ef4444;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+#workspaces button {
+    background: transparent;
+    color: @foreground;
+    border: none;
+    padding: 0 5px;
+    font-size: 12px;
+}
+
+#workspaces button.active {
+    color: @accent;
+    font-size: 14px;
+}
+
+#custom-disk {
+    padding: 0 10px;
+    font-size: 12px;
+    color: @foreground;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-hypridle {
+    padding: 0 10px;
+    font-size: 16px;
+    color: @accent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-hypridle.active {
+    color: @foreground;
+}
+
+#custom-hypridle.inactive {
+    color: #666666;
+}
+
+#custom-vpn {
+    padding: 0 10px;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: @accent;
+}
+
+#custom-vpn.vpn-up {
+    color: @accent;
+}
+
+#custom-vpn.vpn-partial {
+    color: #f59e0b;
+}
+
+#custom-vpn.vpn-down {
+    color: #ef4444;
+}
+
+#custom-gym {
+    padding: 0 10px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-fail2ban {
+    padding: 0 10px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: @accent;
+}
+
+#custom-fail2ban.warning {
+    color: #ffb86c;
+}
+
+#custom-fail2ban.critical {
+    color: #ff5555;
+}
+
+#custom-fail2ban.offline {
+    color: #bd93f9;
+}
+
+#homelab {
+    padding: 0 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-servers-overview {
+    font-size: 16px;
+    padding: 0 5px;
+    color: @accent;
+}
+
+.homelab-server {
+    font-size: 12px;
+    color: @accent;
+}
+
+#custom-server-solaris.server-up,
+#custom-server-media.server-up,
+#custom-server-arrstack.server-up,
+#custom-server-artemis.server-up,
+#custom-server-luna.server-up {
+    color: @accent;
+}
+
+#custom-server-solaris.server-down,
+#custom-server-media.server-down,
+#custom-server-arrstack.server-down,
+#custom-server-artemis.server-down,
+#custom-server-luna.server-down {
+    color: #ef4444;
+}
+
+#custom-pia-vpn {
+    padding: 0 10px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+#custom-pia-vpn.vpn-connected {
+    color: @accent;
+}
+
+#custom-pia-vpn.vpn-connecting {
+    color: #f59e0b;
+}
+
+#custom-pia-vpn.vpn-disconnected {
+    color: #ef4444;
+}
+
+#custom-pia-vpn.vpn-unknown {
+    color: #666666;
+}

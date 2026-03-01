@@ -1,0 +1,16 @@
+#window {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 12px;
+}
+
+* {
+    color: white;
+}
+
+#entry {
+    padding: 8px;
+}
+
+#entry:selected {
+    background-color: #4394f4;
+}
