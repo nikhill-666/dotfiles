@@ -190,6 +190,7 @@ CONFIGS=(
     "kitty:$REPO_DIR/config/kitty"
     "fish:$REPO_DIR/config/fish"
     "rofi:$REPO_DIR/config/rofi"
+    "jellyfin-tui:$REPO_DIR/config/jellyfin-tui"
 )
 
 for item in "${CONFIGS[@]}"; do
@@ -226,6 +227,23 @@ mkdir -p "$HOME/.local/share/applications"
 if [ -f "$REPO_DIR/config/waybar/dumbbell.png" ]; then
     cp "$REPO_DIR/config/waybar/dumbbell.png" "$HOME/.local/share/icons/" 2>/dev/null && info "Copied dumbbell.png" || warn "Failed copy dumbbell.png"
     cp "$REPO_DIR/config/waybar/gym.png" "$HOME/.local/share/icons/" 2>/dev/null && info "Copied gym.png" || warn "Failed copy gym.png"
+fi
+
+# Setup NAS credentials (if template exists)
+if [ -f "$REPO_DIR/secrets/creds.template" ]; then
+    if [ ! -f "$HOME/.creds" ]; then
+        info "Creating ~/.creds from template..."
+        cp "$REPO_DIR/secrets/creds.template" "$HOME/.creds"
+        chmod 600 "$HOME/.creds"
+        warn "EDIT ~/.creds WITH YOUR NAS PASSWORD!"
+    else
+        info "NAS credentials already exist"
+    fi
+fi
+
+# Create NAS mount point
+if [ ! -d "$HOME/mnt/nas" ]; then
+    sudo mkdir -p "$HOME/mnt/nas" 2>/dev/null || true
 fi
 
 # Create desktop entry

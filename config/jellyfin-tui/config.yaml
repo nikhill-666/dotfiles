@@ -1,0 +1,5 @@
+servers:
+- name: media.lan
+  password: Thx11388.
+  url: http://192.168.1.140:8096
+  username: jellyfin
