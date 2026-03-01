@@ -1,0 +1,15 @@
+window {
+    width: 450px;
+    background-color: #010E12;
+    border: 0px;
+    border-radius: 8px;
+}
+* {
+    text-color: #b0b9bc;
+    background-color: #010E12;
+}
+element selected {
+    background-color: #4394f4;
+    text-color: #010E12;
+    border-radius: 4px;
+}

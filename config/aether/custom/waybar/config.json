@@ -1,0 +1,4 @@
+{
+  "template": "waybar.css",
+  "destination": "~/.config/aether/theme/waybar.css"
+}

@@ -170,6 +170,14 @@ CONFIGS=(
     "hypr:$REPO_DIR/config/hyprland"
     "waybar:$REPO_DIR/config/waybar"
     "wofi:$REPO_DIR/config/wofi"
+    "aether:$REPO_DIR/config/aether"
+    "ags:$REPO_DIR/config/ags"
+    "mako:$REPO_DIR/config/mako"
+    "walker:$REPO_DIR/config/walker"
+    "alacritty:$REPO_DIR/config/alacritty"
+    "kitty:$REPO_DIR/config/kitty"
+    "fish:$REPO_DIR/config/fish"
+    "rofi:$REPO_DIR/config/rofi"
 )
 
 for item in "${CONFIGS[@]}"; do
