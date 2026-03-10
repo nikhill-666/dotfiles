@@ -229,6 +229,13 @@ if [ -f "$REPO_DIR/config/waybar/dumbbell.png" ]; then
     cp "$REPO_DIR/config/waybar/gym.png" "$HOME/.local/share/icons/" 2>/dev/null && info "Copied gym.png" || warn "Failed copy gym.png"
 fi
 
+# Setup SDDM theme
+if [ -d "$REPO_DIR/sddm-themes/silent" ]; then
+    info "Installing SDDM theme..."
+    sudo mkdir -p /usr/share/sddm/themes/silent
+    sudo cp -r "$REPO_DIR/sddm-themes/silent/"* /usr/share/sddm/themes/silent/ && info "SDDM theme installed" || warn "Failed to install SDDM theme"
+fi
+
 # Setup NAS credentials (if template exists)
 if [ -f "$REPO_DIR/secrets/creds.template" ]; then
     if [ ! -f "$HOME/.creds" ]; then
