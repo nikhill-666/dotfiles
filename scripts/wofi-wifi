@@ -19,8 +19,8 @@ read_colors() {
 
 read_colors
 
-dir="$HOME/.config/rofi/launchers/type-1"
-theme='style-2'
+dir="$HOME/.config/rofi/launchers/type-2"
+theme='style-1'
 
 rofi_args=(-dmenu -p "WiFi" -theme ${dir}/${theme}.rasi \
     -theme-str "* { selected: $accent; active: $accent; urgent: $accent; }" \

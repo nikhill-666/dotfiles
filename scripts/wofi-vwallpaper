@@ -19,8 +19,8 @@ read_colors() {
 
 read_colors
 
-dir="$HOME/.config/rofi/launchers/type-1"
-theme='style-2'
+dir="$HOME/.config/rofi/launchers/type-2"
+theme='style-1'
 
 VIDEOS=~/Downloads/*.mp4
 
@@ -42,6 +42,7 @@ SELECTION=$(echo "$OPTIONS" | rofi -dmenu -p "Video Wallpaper" \
     -theme-str "textbox highlight { text-color: $accent; }" \
     -theme-str "element { text-color: $fg; }" \
     -theme-str "element selected { background-color: $accent; text-color: #000000; }" \
+    -theme-str "sidebar { text-color: $fg; }" \
     -theme-str "button { text-color: $fg; }" \
     -theme-str "button selected { background-color: $accent; text-color: #000000; }" \
     -width 400 -height 300)
