@@ -27,8 +27,12 @@ rofi_args=(-dmenu -p "WiFi" -theme ${dir}/${theme}.rasi \
     -theme-str "entry { text-color: $fg; }" \
     -theme-str "entry selected { background-color: $accent; text-color: #000000; }" \
     -theme-str "textbox { text-color: $fg; }" \
+    -theme-str "textbox-prompt-colon { text-color: $accent; }" \
+    -theme-str "textbox highlight { text-color: $accent; }" \
     -theme-str "element { text-color: $fg; }" \
-    -theme-str "element selected { background-color: $accent; text-color: #000000; }")
+    -theme-str "element selected { background-color: $accent; text-color: #000000; }" \
+    -theme-str "button { text-color: $fg; }" \
+    -theme-str "button selected { background-color: $accent; text-color: #000000; }")
 
 get_status() {
     connected=$(nmcli -t -f SSID,ACTIVE dev wifi | grep ':yes$' | head -1 | cut -d: -f1)

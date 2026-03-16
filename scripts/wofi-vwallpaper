@@ -38,8 +38,12 @@ SELECTION=$(echo "$OPTIONS" | rofi -dmenu -p "Video Wallpaper" \
     -theme-str "entry { text-color: $fg; }" \
     -theme-str "entry selected { background-color: $accent; text-color: #000000; }" \
     -theme-str "textbox { text-color: $fg; }" \
+    -theme-str "textbox-prompt-colon { text-color: $accent; }" \
+    -theme-str "textbox highlight { text-color: $accent; }" \
     -theme-str "element { text-color: $fg; }" \
     -theme-str "element selected { background-color: $accent; text-color: #000000; }" \
+    -theme-str "button { text-color: $fg; }" \
+    -theme-str "button selected { background-color: $accent; text-color: #000000; }" \
     -width 400 -height 300)
 
 if [ -z "$SELECTION" ]; then
