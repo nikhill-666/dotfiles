@@ -283,6 +283,19 @@ done
 chmod +x "$REPO_DIR"/config/waybar/scripts/*.sh 2>/dev/null || true
 chmod +x "$REPO_DIR"/config/hyprland/scripts/*.sh 2>/dev/null || true
 
+# Link scripts to ~/.local/bin
+mkdir -p "$HOME/.local/bin"
+for script in "$REPO_DIR/scripts"/*.sh; do
+    if [ -f "$script" ]; then
+        name=$(basename "$script")
+        if [ -L "$HOME/.local/bin/$name" ]; then
+            rm "$HOME/.local/bin/$name"
+        fi
+        ln -sf "$script" "$HOME/.local/bin/$name"
+        info "Linked script: $name"
+    fi
+done
+
 log "========================================="
 log "Installation complete!"
 log "========================================="

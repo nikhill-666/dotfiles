@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+# Rofi WiFi Manager - Connect, Disconnect, Scan
+
+THEME_DIR="$HOME/.config/aether/theme"
+COLORS_FILE="$THEME_DIR/colors.toml"
+
+read_colors() {
+    if [[ ! -f "$COLORS_FILE" ]]; then
+        return 1
+    fi
+    
+    fg=$(grep "^foreground\s*=" "$COLORS_FILE" | sed 's/.*= *"\?\([^"]*\)"\?/\1/')
+    accent=$(grep "^accent\s*=" "$COLORS_FILE" | sed 's/.*= *"\?\([^"]*\)"\?/\1/')
+    
+    if [[ -z "$fg" ]]; then
+        return 1
+    fi
+}
+
+read_colors
+
+dir="$HOME/.config/rofi/launchers/type-1"
+theme='style-2'
+
+rofi_args=(-dmenu -p "WiFi" -theme ${dir}/${theme}.rasi \
+    -theme-str "* { selected: $accent; active: $accent; urgent: $accent; }" \
+    -theme-str "entry { text-color: $fg; }" \
+    -theme-str "entry selected { background-color: $accent; text-color: #000000; }" \
+    -theme-str "textbox { text-color: $fg; }" \
+    -theme-str "element { text-color: $fg; }" \
+    -theme-str "element selected { background-color: $accent; text-color: #000000; }")
+
+get_status() {
+    connected=$(nmcli -t -f SSID,ACTIVE dev wifi | grep ':yes$' | head -1 | cut -d: -f1)
+    if [ -n "$connected" ]; then
+        echo "$connected"
+    else
+        echo "Disconnected"
+    fi
+}
+
+menu() {
+    echo "Connect to WiFi"
+    echo "Scan for Networks"
+    echo "Disconnect"
+    echo "Current: $(get_status)"
+}
+
+connect() {
+    saved=$(nmcli -t -f NAME connection show | grep -E '^[a-zA-Z]')
+    available=$(nmcli -t -f SSID dev wifi list | grep -v '^$' | sort -u)
+    printf "%s\n" "$saved" "$available" | rofi "${rofi_args[@]}" -p "Select Network" | while read -r network; do
+        if [ -z "$network" ]; then
+            exit
+        fi
+
+        if nmcli -t -f NAME connection show | grep -qx "$network"; then
+            nmcli con up "$network"
+        else
+            password=$(rofi "${rofi_args[@]}" -p "Password" -password)
+            if [ -n "$password" ]; then
+                nmcli dev wifi connect "$network" password "$password"
+            fi
+        fi
+    done
+}
+
+scan() {
+    nmcli dev wifi rescan
+    sleep 2
+    nmcli -t -f SSID,SIGNAL dev wifi list | grep -v '^:' | while IFS=: read -r ssid signal; do
+        echo "$ssid ($signal%)"
+    done | rofi "${rofi_args[@]}" -p "Available Networks"
+}
+
+disconnect() {
+    nmcli dev disconnect iface wlan0
+}
+
+case "$(menu | rofi "${rofi_args[@]}")" in
+    "Connect to WiFi") connect ;;
+    "Scan for Networks") scan ;;
+    "Disconnect") disconnect ;;
+esac

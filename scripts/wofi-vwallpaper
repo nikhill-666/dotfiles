@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Select an mp4 from ~/Downloads and set as wallpaper with mpvpaper using rofi
+
+THEME_DIR="$HOME/.config/aether/theme"
+COLORS_FILE="$THEME_DIR/colors.toml"
+
+read_colors() {
+    if [[ ! -f "$COLORS_FILE" ]]; then
+        return 1
+    fi
+    
+    fg=$(grep "^foreground\s*=" "$COLORS_FILE" | sed 's/.*= *"\?\([^"]*\)"\?/\1/')
+    accent=$(grep "^accent\s*=" "$COLORS_FILE" | sed 's/.*= *"\?\([^"]*\)"\?/\1/')
+    
+    if [[ -z "$fg" ]]; then
+        return 1
+    fi
+}
+
+read_colors
+
+dir="$HOME/.config/rofi/launchers/type-1"
+theme='style-2'
+
+VIDEOS=~/Downloads/*.mp4
+
+if [ -z "$(ls -A $VIDEOS 2>/dev/null)" ]; then
+    echo "No mp4 files found in ~/Downloads"
+    exit 1
+fi
+
+OPTIONS=$(ls -1 $VIDEOS | xargs -I {} basename {})
+OPTIONS="${OPTIONS}"$'\n'"End Video Wallpaper"
+
+SELECTION=$(echo "$OPTIONS" | rofi -dmenu -p "Video Wallpaper" \
+    -theme ${dir}/${theme}.rasi \
+    -theme-str "* { selected: $accent; active: $accent; urgent: $accent; }" \
+    -theme-str "entry { text-color: $fg; }" \
+    -theme-str "entry selected { background-color: $accent; text-color: #000000; }" \
+    -theme-str "textbox { text-color: $fg; }" \
+    -theme-str "element { text-color: $fg; }" \
+    -theme-str "element selected { background-color: $accent; text-color: #000000; }" \
+    -width 400 -height 300)
+
+if [ -z "$SELECTION" ]; then
+    exit 0
+fi
+
+if [ "$SELECTION" = "End Video Wallpaper" ]; then
+    pkill -f mpvpaper 2>/dev/null
+    sleep 0.5
+    hyprctl dispatch exec "hyprpaper"
+    exit 0
+fi
+
+pkill -f mpvpaper 2>/dev/null
+sleep 0.5
+
+FULL_PATH=$(ls -1 $VIDEOS | grep "$SELECTION")
+
+echo "Setting $SELECTION as wallpaper..."
+mpvpaper -f -o "no-audio loop" eDP-1 "$FULL_PATH"
